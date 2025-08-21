@@ -70,6 +70,7 @@ function App() {
       });
   };
   const handleLoadMore = () => {
+    setLoading(true);
     const next = page + 1;
     setPage(next);
     console.log(next);
