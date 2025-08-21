@@ -1,0 +1,16 @@
+.header {
+  background-color: #3e50b5;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+input {
+  background-color: white;
+  color: black;
+  height: 24px;
+  margin-right: 24px;
+  width: 360px;
+}
