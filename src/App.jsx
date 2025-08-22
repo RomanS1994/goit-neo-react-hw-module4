@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { useState } from 'react';
 import { ClipLoader } from 'react-spinners';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 
 import './App.css';
 
@@ -29,6 +30,19 @@ function App() {
   const [value, setValue] = useState('');
   const [page, setPage] = useState(1);
 
+  const notify = () =>
+    toast.error('Nothing entered!', {
+      position: 'top-left',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'dark',
+      transition: Bounce,
+    });
+
   function openModal(img) {
     setIsOpen(true);
     setImg(img);
@@ -40,7 +54,10 @@ function App() {
   const handleSubmit = event => {
     event.preventDefault();
     const q = event.currentTarget.elements.query.value.trim();
-    if (!q) return;
+    if (!q) {
+      notify();
+      return;
+    }
     setLoading(true);
 
     const firstPage = 1;
@@ -106,6 +123,19 @@ function App() {
   return (
     <>
       <SearchBar onSubmit={handleSubmit} />
+      <ToastContainer
+        position="top-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+      />
       <ImageGallery data={photos} openModal={openModal} />
       {hasSearched && photos.length === 0 && <ErrorMessage />}
       {photos.length > 0 && <LoadMoreBtn onClick={handleLoadMore} />}
